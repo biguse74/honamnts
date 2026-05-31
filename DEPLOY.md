@@ -8,6 +8,35 @@ newtamsa.org 가 이미 자체 nginx 서버(Ubuntu)로 돌고 있으므로, **�
 
 ---
 
+## 방법 C — GitHub Pages (추천: 무료 + 자동 빌드/배포 + 자동 SSL)
+
+이 저장소에는 이미 **자동 배포 워크플로**(`.github/workflows/deploy.yml`)와 **커스텀 도메인 파일**(`public/CNAME` → `honam.newtamsa.org`)이 들어 있습니다. main 에 푸시하면 GitHub Actions 가 빌드해서 Pages 에 올립니다.
+
+### 1) GitHub 저장소 만들고 푸시
+로컬에 git 저장소·커밋은 이미 준비돼 있습니다(브랜치 `main`).
+GitHub.com 에서 **빈 저장소**(예: `honam-landing`)를 새로 만든 뒤, 로컬에서:
+```bash
+git remote add origin https://github.com/<깃허브계정>/<저장소이름>.git
+git push -u origin main
+```
+> 푸시할 때 GitHub 로그인(브라우저 인증 또는 Personal Access Token)이 필요합니다. — 이 인증은 직접 해주셔야 합니다.
+> `gh` CLI 가 있으면 `gh repo create <이름> --public --source=. --push` 한 줄로도 됩니다.
+
+### 2) Pages 소스 지정
+저장소 → **Settings → Pages → Build and deployment → Source: "GitHub Actions"** 선택.
+(첫 푸시 후 Actions 탭에서 "Deploy to GitHub Pages" 워크플로가 자동 실행됩니다.)
+
+### 3) 커스텀 도메인 + DNS
+- `public/CNAME` 덕분에 배포 후 Settings → Pages 의 Custom domain 이 `honam.newtamsa.org` 로 잡힙니다.
+- DNS 에 **CNAME 레코드** 추가: `honam` → `<깃허브계정>.github.io`
+- DNS 검증이 끝나면 Settings → Pages 에서 **Enforce HTTPS** 체크.
+
+### 4) 확인 & 재배포
+- https://honam.newtamsa.org 접속 확인 → 홈페이지에서 링크.
+- **수정할 때는 `git push` 만** 하면 자동으로 다시 빌드·배포됩니다. (서버 작업 0)
+
+---
+
 ## 방법 A — 자체 nginx 서버에 직접 (추천, newtamsa.org와 동일 인프라)
 
 ### 1) DNS 레코드 추가
