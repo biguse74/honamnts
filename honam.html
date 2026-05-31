@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>호남뉴탐사 — 호남에서 쏘아 올리는 첫 신호탄</title>
+<meta name="description" content="호남 권력을 호남에서 감시합니다. 호남뉴탐사 창립 발기인 100인을 모십니다." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="호남에서 쏘아 올리는 첫 신호탄 — 호남뉴탐사" />
+<meta property="og:description" content="호남 권력을 호남에서 감시합니다. 창립 발기인 100인을 모십니다." />
+<!-- TODO(에셋): og:image 1200x630 (cdn.newtamsa.org 경로로 교체) -->
+
+<!-- Pretendard -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<style>
+/* ============================================================================
+   호남뉴탐사 — 단일 파일 랜딩 (newtamsa.org /p/ 용)
+   - 브랜드: 네이비 #0D1B2A / 골드 #C69026(남발 금지) / 블루 #2B6CB0 / Pretendard
+   - 카카오 채널: _PKxhGX  → https://pf.kakao.com/_PKxhGX/chat
+   - 배경 이미지: 지금은 더미/프리뷰(picsum). 실제 사진은 .secbg 의 background-image 를
+     cdn.newtamsa.org 경로로 교체하면 됩니다. (각 슬롯에 HTML 주석 표시)
+   ========================================================================== */
+:root{
+  --navy:#0D1B2A; --navy800:#11233A; --navy700:#16304F;
+  --gold:#C69026; --blue:#2B6CB0; --ink:#FFFFFF; --mist:#E2E8F0;
+  --kakao:#FEE500; --kakaoText:#191600;
+  --maxw:72rem;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--navy); color:var(--mist);
+  font-family:'Pretendard Variable',Pretendard,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  line-height:1.7; word-break:keep-all; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
+@media(min-width:640px){.wrap{padding:0 2rem}}
+
+section,footer{position:relative;overflow:hidden}
+
+/* ── 섹션 배경 슬롯 ── */
+.secbg{position:absolute;inset:0;z-index:0;background-position:center;background-size:cover;background-repeat:no-repeat}
+.secbg::after{content:'';position:absolute;inset:0;background:var(--scrim,rgba(13,27,42,.76))}
+.secbg::before{
+  content:attr(data-label);position:absolute;top:18px;left:50%;transform:translateX(-50%);
+  font-size:11px;color:rgba(226,232,240,.45);border:1px solid rgba(226,232,240,.15);
+  padding:4px 10px;border-radius:999px;background:rgba(13,27,42,.4);backdrop-filter:blur(4px);white-space:nowrap;z-index:1
+}
+
+/* ── reveal ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ── 버튼 ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:999px;font-weight:700;cursor:pointer;border:none;transition:transform .2s,opacity .2s,border-color .2s,color .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 0 32px rgba(198,144,38,.35),0 0 96px rgba(198,144,38,.16)}
+.btn-gold:hover{transform:translateY(-2px)}
+.btn-kakao{background:var(--kakao);color:var(--kakaoText)}
+.btn-kakao:hover{opacity:.9}
+.btn-ghost{background:transparent;border:1px solid rgba(226,232,240,.3);color:var(--mist);font-weight:600}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── HERO ── */
+.hero{min-height:100svh;display:flex;align-items:flex-end;justify-content:flex-start}
+@media(min-width:640px){.hero{align-items:center;justify-content:center}}
+.hero-bg{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(ellipse at 50% 100%, rgba(198,144,38,.28) 0%, rgba(198,144,38,.08) 26%, transparent 48%),
+  radial-gradient(ellipse at 18% 32%, rgba(43,108,176,.24) 0%, transparent 42%),
+  linear-gradient(180deg,#07111D 0%, #0D1B2A 54%, #050A12 100%)}
+.hero-lights{position:absolute;inset:0;z-index:0;opacity:.3;background:
+  radial-gradient(1.5px 1.5px at 20% 80%,rgba(198,144,38,.5) 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 70% 75%,rgba(226,232,240,.4) 50%,transparent 51%),
+  radial-gradient(1px 1px at 45% 85%,rgba(43,108,176,.5) 50%,transparent 51%),
+  radial-gradient(1px 1px at 85% 82%,rgba(226,232,240,.35) 50%,transparent 51%)}
+.hero-vignette{position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 50% 68%,transparent 0%,rgba(13,27,42,.48) 62%,rgba(13,27,42,.92) 100%)}
+.hero-scrim{position:absolute;inset:0;z-index:0;background:linear-gradient(to top,var(--navy),rgba(13,27,42,.3) 50%,rgba(13,27,42,.1))}
+.hero-label{position:absolute;top:18px;right:18px;z-index:2;font-size:11px;color:rgba(226,232,240,.5);border:1px solid rgba(226,232,240,.2);padding:4px 10px;border-radius:999px;background:rgba(13,27,42,.4)}
+/* 신호탄 빔 */
+.beam-wrap{position:absolute;inset:0;z-index:0;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.beam-core{position:absolute;bottom:0;width:2px;height:72svh;background:linear-gradient(to top,rgba(198,144,38,.95) 0%,rgba(198,144,38,.5) 42%,rgba(198,144,38,0) 100%);box-shadow:0 0 32px rgba(198,144,38,.35),0 0 96px rgba(198,144,38,.16);animation:beam 3.4s ease-in-out infinite;transform-origin:bottom}
+.beam-glow{position:absolute;bottom:0;width:2.5rem;height:70%;filter:blur(12px);background:linear-gradient(to top,rgba(198,144,38,.35),rgba(198,144,38,0));animation:beam 3.4s ease-in-out infinite;transform-origin:bottom}
+.beam-spark{position:absolute;bottom:-9rem;width:18rem;height:18rem;border-radius:50%;background:rgba(198,144,38,.22);filter:blur(60px);animation:beam 3.4s ease-in-out infinite}
+@keyframes beam{0%,100%{opacity:.4;transform:scaleY(.96)}50%{opacity:.95;transform:scaleY(1)}}
+
+.hero .wrap{display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding-bottom:7rem}
+@media(min-width:640px){.hero .wrap{align-items:center;text-align:center;padding-bottom:0}}
+.hero-rot{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem;font-size:1rem;font-weight:500;color:rgba(226,232,240,.8);margin-bottom:1.25rem}
+@media(min-width:640px){.hero-rot{font-size:1.125rem;justify-content:center}}
+#rot{font-weight:700;color:var(--ink);transition:opacity .35s ease;min-width:5.5em;text-align:left}
+@media(min-width:640px){#rot{text-align:center}}
+.hero h1{font-weight:900;line-height:.98;color:var(--ink);font-size:clamp(3.4rem,15vw,5rem)}
+@media(min-width:640px){.hero h1{font-size:clamp(5rem,8vw,7.5rem);max-width:60rem}}
+.hero h1 .gold{display:block;color:var(--gold)}
+.hero h1 .lead{display:block}
+.hero-sub{margin-top:1.5rem;font-size:1.125rem;font-weight:600;color:var(--mist)}
+@media(min-width:640px){.hero-sub{font-size:1.25rem}}
+.hero-actions{margin-top:2rem;display:flex;flex-direction:column;align-items:flex-start;gap:1rem;width:100%}
+@media(min-width:640px){.hero-actions{align-items:center;width:auto}}
+.hero-actions .row{display:flex;flex-direction:column;gap:.75rem;width:100%}
+@media(min-width:640px){.hero-actions .row{flex-direction:row;align-items:center;width:auto}}
+.hero-actions .btn{width:100%;padding:1rem 2rem;font-size:1rem}
+@media(min-width:640px){.hero-actions .btn{width:auto;font-size:1.125rem}}
+.tel-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.875rem;font-weight:500;color:rgba(226,232,240,.7);transition:color .2s}
+.tel-link:hover{color:var(--gold)}
+.scroll-ind{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(226,232,240,.45)}
+.scroll-ind .txt{display:none}
+@media(min-width:640px){.scroll-ind .txt{display:block;font-size:.75rem;letter-spacing:.2em}}
+.scroll-ind svg{animation:bounce 1.8s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ── 섹션 공통 ── */
+.sec{padding:6rem 0}
+@media(min-width:640px){.sec{padding:8rem 0}}
+.eyebrow{font-size:.875rem;font-weight:600;letter-spacing:.08em;color:var(--gold);margin-bottom:.75rem}
+.sec-title{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--ink)}
+@media(min-width:640px){.sec-title{font-size:2.25rem}}
+.sec-head{max-width:42rem;margin-bottom:3rem}
+
+/* ── 미션 ── */
+.mission{padding:7rem 0}
+@media(min-width:640px){.mission{padding:10rem 0}}
+.mission .lines{max-width:56rem}
+.mission p{font-size:2.25rem;font-weight:900;line-height:1.2;color:var(--ink)}
+@media(min-width:640px){.mission p{font-size:3.75rem}}
+.mission p.gold{color:var(--gold)}
+.mission .reveal:nth-child(2){transition-delay:.16s}
+.mission .reveal:nth-child(3){transition-delay:.32s}
+
+/* ── 카드 그리드 ── */
+.grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+@media(min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+.card{display:flex;flex-direction:column;height:100%;background:var(--navy800);border:1px solid rgba(226,232,240,.1);border-radius:1rem;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:rgba(226,232,240,.2)}
+.card-img{position:relative;width:100%;aspect-ratio:4/3;background:var(--navy700);background-position:center;background-size:cover}
+.card-img .lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card-img .lbl span{font-size:.75rem;color:rgba(226,232,240,.8);border:1px solid rgba(226,232,240,.25);background:rgba(13,27,42,.6);padding:.25rem .75rem;border-radius:999px;text-align:center;backdrop-filter:blur(4px)}
+.card-body{display:flex;flex-direction:column;flex:1;padding:1.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
+.chip{display:inline-flex;align-items:center;border-radius:999px;border:1px solid rgba(43,108,176,.4);background:rgba(43,108,176,.1);padding:.125rem .625rem;font-size:.75rem;font-weight:500;color:var(--mist)}
+.card h3{font-size:1.125rem;font-weight:700;line-height:1.35;color:var(--ink)}
+.card p{margin-top:.5rem;flex:1;font-size:.875rem;line-height:1.6;color:rgba(226,232,240,.7)}
+.more{margin-top:1rem;display:inline-flex;align-items:center;gap:.25rem;font-size:.875rem;font-weight:600;color:var(--blue)}
+
+/* ── 약속 ── */
+.promises-grid{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(226,232,240,.1);border:1px solid rgba(226,232,240,.1);border-radius:1rem;overflow:hidden}
+@media(min-width:640px){.promises-grid{grid-template-columns:1fr 1fr}}
+.promise{background:var(--navy800);padding:1.75rem}
+@media(min-width:640px){.promise{padding:2rem}}
+.promise .no{font-size:.875rem;font-weight:700;letter-spacing:.1em;color:var(--gold)}
+.promise h3{margin-top:.75rem;font-size:1.25rem;font-weight:800;line-height:1.35;color:var(--ink)}
+@media(min-width:640px){.promise h3{font-size:1.5rem}}
+.promise p{margin-top:.5rem;font-size:1rem;line-height:1.6;color:rgba(226,232,240,.8)}
+
+/* ── 회복탄력성 ── */
+.resil{padding:7rem 0}
+@media(min-width:640px){.resil{padding:9rem 0}}
+.resil .inner{max-width:48rem}
+.resil .line{font-size:1.25rem;font-weight:500;line-height:1.7;color:var(--mist);margin-bottom:1rem}
+@media(min-width:640px){.resil .line{font-size:1.5rem}}
+.resil .gold{margin-top:2.5rem;border-left:2px solid var(--gold);padding-left:1.25rem;font-size:1.5rem;font-weight:800;line-height:1.35;color:var(--gold)}
+@media(min-width:640px){.resil .gold{font-size:1.875rem}}
+
+/* ── CTA ── */
+.cta-head{max-width:42rem;margin:0 auto;text-align:center}
+.cta-head h2{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--ink)}
+@media(min-width:640px){.cta-head h2{font-size:3rem}}
+.cta-head .lead{margin-top:1.25rem;font-size:1.125rem;line-height:1.6;color:var(--mist)}
+@media(min-width:640px){.cta-head .lead{font-size:1.25rem}}
+.no-motif{margin-top:2.5rem;display:inline-flex;align-items:center;gap:.75rem;border-radius:999px;border:1px solid rgba(198,144,38,.4);background:rgba(198,144,38,.05);padding:.75rem 1.5rem}
+.no-motif .t{font-size:.875rem;font-weight:600;color:rgba(226,232,240,.8)}
+.no-motif .no{font-size:1.5rem;font-weight:800;letter-spacing:.1em;color:var(--gold)}
+.no-motif .box{display:inline-flex;align-items:center;justify-content:center;height:2.25rem;width:3rem;border-radius:.375rem;border:2px dashed rgba(198,144,38,.5);font-size:1.25rem;font-weight:700;color:rgba(198,144,38,.7)}
+.acct{max-width:36rem;margin:3rem auto 0;border-radius:1rem;border:1px solid rgba(226,232,240,.1);background:var(--navy);padding:1.5rem}
+@media(min-width:640px){.acct{padding:2rem}}
+.acct .hd{font-size:.875rem;font-weight:600;letter-spacing:.08em;color:var(--gold);margin-bottom:1rem}
+.acct-rows{border-radius:.75rem;background:var(--navy800);padding:.5rem 1.25rem}
+.acct-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(226,232,240,.1)}
+.acct-row:last-child{border-bottom:none}
+.acct-row .k{font-size:.875rem;color:rgba(226,232,240,.6)}
+.acct-row .v{display:flex;align-items:center;gap:.5rem}
+.acct-row .v b{font-weight:600;color:var(--ink)}
+.mini{border-radius:.375rem;border:1px solid rgba(226,232,240,.2);background:transparent;padding:.125rem .5rem;font-size:.75rem;color:rgba(226,232,240,.7);cursor:pointer;transition:border-color .2s,color .2s}
+.mini:hover{border-color:var(--gold);color:var(--gold)}
+.notices{margin-top:1.25rem;display:flex;flex-direction:column;gap:.5rem}
+.notices li{display:flex;gap:.5rem;font-size:.875rem;line-height:1.6;color:rgba(226,232,240,.75);list-style:none}
+.notices li span.b{color:var(--gold)}
+.confirm{margin-top:1.25rem;display:flex;align-items:center;justify-content:center;gap:.5rem;border-radius:.75rem;border:1px solid rgba(43,108,176,.3);background:rgba(43,108,176,.1);padding:.75rem 1rem;text-align:center}
+.confirm .k{font-size:.875rem;color:rgba(226,232,240,.7)}
+.confirm a{font-size:1rem;font-weight:700;color:var(--ink)}
+.confirm a:hover{color:var(--gold)}
+
+.formbox{max-width:36rem;margin:2rem auto 0}
+#joinForm{display:flex;flex-direction:column;gap:.75rem;border-radius:1rem;border:1px solid rgba(226,232,240,.1);background:var(--navy);padding:1.25rem}
+@media(min-width:640px){#joinForm{flex-direction:row}}
+#joinForm input{flex:1;border-radius:.5rem;border:1px solid rgba(226,232,240,.15);background:var(--navy800);padding:.75rem 1rem;color:var(--ink);font:inherit;outline:none}
+#joinForm input::placeholder{color:rgba(226,232,240,.4)}
+#joinForm input:focus{border-color:var(--gold)}
+#joinForm .btn{white-space:nowrap;padding:.75rem 1.5rem}
+#doneBox{display:none;border-radius:1rem;border:1px solid rgba(198,144,38,.4);background:rgba(198,144,38,.05);padding:1.5rem}
+#doneBox p{font-size:.875rem;line-height:1.7;color:var(--mist)}
+#joinMsg{margin-top:1rem;white-space:pre-wrap;border-radius:.5rem;background:var(--navy800);padding:1rem;font-size:.875rem;line-height:1.7;color:rgba(226,232,240,.9);font-family:inherit}
+#doneBox .acts{margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+@media(min-width:640px){#doneBox .acts{flex-direction:row}}
+#doneBox .btn{padding:.75rem 1.25rem;font-size:.875rem;border-radius:.5rem}
+#copyAgain{background:transparent;border:1px solid rgba(226,232,240,.2);color:var(--mist);font-weight:600}
+#copyAgain:hover{border-color:var(--gold);color:var(--gold)}
+#openChat{flex:1}
+
+/* ── 푸터 ── */
+footer{padding:6rem 0}
+@media(min-width:640px){footer{padding:8rem 0}}
+.foot{text-align:center}
+.foot .closing{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--ink)}
+@media(min-width:640px){.foot .closing{font-size:2.25rem}}
+.foot .invite{max-width:36rem;margin:1.5rem auto 0;font-size:1.125rem;line-height:1.6;color:var(--mist)}
+@media(min-width:640px){.foot .invite{font-size:1.25rem}}
+.foot .kakao-row{margin-top:2rem;display:flex;justify-content:center}
+.foot .kakao-row .btn{padding:.875rem 1.75rem;font-size:1rem}
+.foot .info{margin-top:4rem;border-top:1px solid rgba(226,232,240,.1);padding-top:2rem}
+.foot .org{font-size:1rem;font-weight:700;color:var(--ink)}
+.foot .contact{margin-top:.25rem;font-size:.875rem;color:rgba(226,232,240,.6)}
+.foot .lineage{margin-top:.75rem;font-size:.75rem;color:rgba(226,232,240,.4)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ 1. HERO ════════ -->
+<section class="hero">
+  <!-- [히어로 영상 자리 — 광주 야경/신호탄] : 실제 영상/이미지는 .hero-bg 교체 -->
+  <div class="hero-bg"></div>
+  <div class="hero-lights"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-scrim"></div>
+  <div class="beam-wrap"><div class="beam-spark"></div><div class="beam-glow"></div><div class="beam-core"></div></div>
+  <span class="hero-label">[히어로 영상 자리 — 광주 야경/신호탄]</span>
+
+  <div class="wrap">
+    <div class="hero-rot">
+      <span>호남에서</span>
+      <span id="rot">취재를</span>
+      <span>시작합니다</span>
+    </div>
+    <h1><span class="lead">호남에서 쏘아 올리는</span><span class="gold">첫 신호탄</span></h1>
+    <p class="hero-sub">시민과 함께 시작합니다</p>
+    <div class="hero-actions">
+      <div class="row">
+        <a class="btn btn-gold" href="#join">발기인 신청하기</a>
+        <a class="btn btn-kakao" href="https://pf.kakao.com/_PKxhGX/chat" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.8 6.7-.2.7-.7 2.6-.8 3-.1.5.2.5.4.4.3-.2 3-2 3.7-2.5.6.1 1.3.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+          카카오톡 문의
+        </a>
+      </div>
+      <a class="tel-link" href="tel:01097172340">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        전화 문의 010-9717-2340
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <span class="txt">아래로</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- ════════ 2. 미션 ════════ -->
+<section class="mission">
+  <!-- 배경 슬롯: 실제 사진은 background-image 를 cdn.newtamsa.org 경로로 교체 -->
+  <div class="secbg" data-label="[배경 이미지 — 호남 풍경/하늘]" style="--scrim:linear-gradient(to bottom,rgba(13,27,42,.8),rgba(13,27,42,.72),rgba(13,27,42,.88));background-image:url('https://picsum.photos/seed/honam-mission/1600/1000')"></div>
+  <div class="wrap">
+    <div class="lines">
+      <p class="reveal">호남 권력은</p>
+      <p class="reveal gold">호남에서</p>
+      <p class="reveal">감시하겠습니다</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 3. 호남에서 해온 일 ════════ -->
+<!-- TODO(사실 확인 후 추가): '목포시장 후보 검증' 카드 — 확인 전까지 미표시 -->
+<section class="sec">
+  <div class="secbg" data-label="[배경 이미지 — 현장 취재]" style="--scrim:rgba(13,27,42,.72);background-image:url('https://picsum.photos/seed/honam-work/1600/1000')"></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">호남에서 해온 일</p>
+      <h2 class="sec-title">이미, 호남에서 일하고 있습니다</h2>
+    </div>
+    <div class="grid grid-3">
+      <article class="card reveal">
+        <div class="card-img" style="background-image:url('https://picsum.photos/seed/work-1/800/600')"><div class="lbl"><span>[보도 카드 이미지 1 — 공천 보도]</span></div></div>
+        <div class="card-body">
+          <div class="chips"><span class="chip">공천</span><span class="chip">검증</span></div>
+          <h3>민주당 호남 공천재난, 연속 보도</h3>
+          <p>공천 과정의 균열을 호남 현장에서 끝까지 따라붙어 기록했습니다.</p>
+          <span class="more">더보기 →</span>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-img" style="background-image:url('https://picsum.photos/seed/work-2/800/600')"><div class="lbl"><span>[보도 카드 이미지 2 — 돈봉투 보도]</span></div></div>
+        <div class="card-body">
+          <div class="chips"><span class="chip">정치자금</span></div>
+          <h3>장세일 광주시장 후보 돈봉투 보도</h3>
+          <p>정치자금의 흐름을 시민의 눈높이에서 추적해 드러냈습니다.</p>
+          <span class="more">더보기 →</span>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-img" style="background-image:url('https://picsum.photos/seed/work-3/800/600')"><div class="lbl"><span>[보도 카드 이미지 3 — 현장 이동 데스크]</span></div></div>
+        <div class="card-body">
+          <div class="chips"><span class="chip">현장</span></div>
+          <h3>호남 현장 이동 데스크 3회</h3>
+          <p>서울 책상이 아니라 호남 현장에서 직접 묻고 들었습니다.</p>
+          <span class="more">더보기 →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 4. 4가지 약속 ════════ -->
+<section class="sec">
+  <div class="secbg" data-label="[배경 이미지 — 광주 베이스캠프]" style="--scrim:rgba(13,27,42,.74);background-image:url('https://picsum.photos/seed/honam-promise/1600/1000')"></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">호남 시민과의 약속</p>
+      <h2 class="sec-title">4가지를 약속합니다</h2>
+    </div>
+    <div class="promises-grid">
+      <div class="promise reveal"><span class="no">01</span><h3>광주 베이스캠프 구축</h3><p>위클리 호남을 제작하고 송출하는 거점을 광주에 세웁니다.</p></div>
+      <div class="promise reveal"><span class="no">02</span><h3>위클리 호남 정규 편성</h3><p>매주 토요일, 호남에서 직접 송출합니다.</p></div>
+      <div class="promise reveal"><span class="no">03</span><h3>호남 상주 취재</h3><p>365일, 호남 권력을 가까이에서 감시합니다.</p></div>
+      <div class="promise reveal"><span class="no">04</span><h3>지자체·공공광고 일체 거부</h3><p>시민 후원금만으로 운영합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 5. 흔들리지 않는다 ════════ -->
+<section class="resil">
+  <div class="secbg" data-label="[배경 이미지 — 결의/연대]" style="--scrim:linear-gradient(to bottom,rgba(13,27,42,.82),rgba(13,27,42,.74),rgba(13,27,42,.9));background-image:url('https://picsum.photos/seed/honam-resil/1600/1000')"></div>
+  <div class="wrap">
+    <div class="inner">
+      <p class="line reveal">첫 방송을 앞두고 고소·고발과 음해성 흠집내기가 다시 시작됐습니다.</p>
+      <p class="line reveal">뉴탐사 출범 때부터 겪어온 일입니다. 제대로 가고 있다는 뜻으로 읽습니다.</p>
+      <p class="gold reveal">우리는 기득권 카르텔에 불편한 존재입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 6. 발기인 모집 CTA ════════ -->
+<section class="sec" id="join">
+  <div class="secbg" data-label="[배경 이미지 — 시민과 함께]" style="--scrim:rgba(13,27,42,.78);background-image:url('https://picsum.photos/seed/honam-cta/1600/1000')"></div>
+  <div class="wrap">
+    <div class="cta-head reveal">
+      <h2>창립 발기인 100인을 모십니다</h2>
+      <p class="lead">월 10만 원 창립 발기인 100인이 모이면, 호남지사는 현실이 됩니다.</p>
+      <div class="no-motif">
+        <span class="t">창립</span>
+        <span style="display:inline-flex;align-items:center;gap:.25rem"><span class="no">No.</span><span class="box">?</span></span>
+        <span class="t">번째 발기인</span>
+      </div>
+    </div>
+
+    <!-- 계좌 안내 -->
+    <div class="acct reveal">
+      <p class="hd">자동이체 계좌 안내</p>
+      <div class="acct-rows">
+        <div class="acct-row"><span class="k">은행</span><span class="v"><b>광주은행</b><button class="mini" data-copy="광주은행">복사</button></span></div>
+        <div class="acct-row"><span class="k">계좌번호</span><span class="v"><b>1107-021-985438</b><button class="mini" data-copy="1107-021-985438">복사</button></span></div>
+        <div class="acct-row"><span class="k">예금주</span><span class="v"><b>(주)호남뉴탐사</b><button class="mini" data-copy="(주)호남뉴탐사">복사</button></span></div>
+      </div>
+      <ul class="notices">
+        <li><span class="b">·</span><span>약정하신 금액으로 등록 부탁드립니다. 사정이 있으시면 아래 번호로 별도 연락 주세요.</span></li>
+        <li><span class="b">·</span><span>입금자명은 반드시 성함으로 표시해 주세요.</span></li>
+      </ul>
+      <div class="confirm"><span class="k">등록 확인 문자</span><a href="tel:01097172340">010-9717-2340</a></div>
+    </div>
+
+    <!-- 신청 폼 (성함·연락처 → 복사 + 카톡 채팅 열기) -->
+    <div class="formbox reveal">
+      <form id="joinForm">
+        <input type="text" name="applicantName" required placeholder="성함" autocomplete="name" />
+        <input type="tel" name="applicantPhone" required placeholder="연락처 (예: 010-1234-5678)" autocomplete="tel" />
+        <button type="submit" class="btn btn-kakao">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.8 6.7-.2.7-.7 2.6-.8 3-.1.5.2.5.4.4.3-.2 3-2 3.7-2.5.6.1 1.3.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+          카카오톡으로 신청 보내기
+        </button>
+      </form>
+      <div id="doneBox">
+        <p>신청 내용을 복사했어요. 열린 카카오톡 채팅창에 붙여넣어 보내주시면 발기인 등록을 안내드립니다. 창이 안 열렸다면 아래 버튼으로 채팅을 열어 주세요.</p>
+        <div id="joinMsg"></div>
+        <div class="acts">
+          <button type="button" id="copyAgain" class="btn">신청 내용 다시 복사</button>
+          <a id="openChat" class="btn btn-kakao" href="https://pf.kakao.com/_PKxhGX/chat" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.8 6.7-.2.7-.7 2.6-.8 3-.1.5.2.5.4.4.3-.2 3-2 3.7-2.5.6.1 1.3.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+            카카오톡 채팅 열기
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 7. 마무리 / 푸터 ════════ -->
+<footer>
+  <div class="secbg" data-label="[배경 이미지 — 호남의 길]" style="--scrim:rgba(13,27,42,.8);background-image:url('https://picsum.photos/seed/honam-footer/1600/1000')"></div>
+  <div class="wrap">
+    <div class="foot">
+      <div class="reveal">
+        <p class="closing">작게 시작하겠습니다. 끝까지 가겠습니다.</p>
+        <p class="invite">호남 권력을 호남에서 감시하는 그 길을, 함께 걸어가 주세요.</p>
+        <div class="kakao-row">
+          <a class="btn btn-kakao" href="https://pf.kakao.com/_PKxhGX/chat" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.8 6.7-.2.7-.7 2.6-.8 3-.1.5.2.5.4.4.3-.2 3-2 3.7-2.5.6.1 1.3.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+            카카오톡으로 문의하기
+          </a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="org">(주)호남뉴탐사</p>
+        <p class="contact">문의 010-9717-2340</p>
+        <p class="lineage">시민언론 뉴탐사와 함께 호남에 뿌리내려 갑니다.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var KAKAO_CHAT = 'https://pf.kakao.com/_PKxhGX/chat';
+
+  // ── 회전 헤드라인 ──
+  var words = ['취재를','방송을','감시를','시민과 함께'];
+  var rot = document.getElementById('rot');
+  var idx = 0;
+  setInterval(function(){
+    rot.style.opacity = '0';
+    setTimeout(function(){
+      idx = (idx + 1) % words.length;
+      rot.textContent = words[idx];
+      rot.style.opacity = '1';
+    }, 280);
+  }, 3200);
+
+  // ── 스크롤 등장 ──
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '-40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // ── 복사 유틸 ──
+  function copyText(text, btn){
+    var done = function(){
+      if (!btn) return;
+      var orig = btn.textContent; btn.textContent = '복사됨';
+      setTimeout(function(){ btn.textContent = orig; }, 1500);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function(){});
+    } else {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta); done();
+      } catch(e){}
+    }
+  }
+
+  // 계좌 복사 버튼
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){ copyText(b.getAttribute('data-copy'), b); });
+  });
+
+  // ── 신청 폼: 복사 + 카톡 채팅 열기 ──
+  var form = document.getElementById('joinForm');
+  var doneBox = document.getElementById('doneBox');
+  var joinMsg = document.getElementById('joinMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = form.querySelector('[name="applicantName"]').value.trim();
+    var phone = form.querySelector('[name="applicantPhone"]').value.trim();
+    var msg = '[호남뉴탐사 창립 발기인 신청]\n성함: ' + name + '\n연락처: ' + phone + '\n약정: 월 10만 원';
+    copyText(msg, null);
+    window.open(KAKAO_CHAT, '_blank', 'noopener,noreferrer');
+    joinMsg.textContent = msg;
+    form.style.display = 'none';
+    doneBox.style.display = 'block';
+  });
+  document.getElementById('copyAgain').addEventListener('click', function(){
+    copyText(joinMsg.textContent, this);
+  });
+})();
+</script>
+</body>
+</html>
