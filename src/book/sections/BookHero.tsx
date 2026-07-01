@@ -42,20 +42,38 @@ export default function BookHero() {
             {bookHero.eyebrow}
           </motion.p>
 
+          <motion.p
+            className="mb-1 text-base font-semibold text-mist/60"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+          >
+            {bookHero.overline}
+          </motion.p>
+
           <motion.h1
-            className="text-[clamp(3.4rem,13vw,6rem)] font-black leading-[0.95] text-ink"
+            className="text-[clamp(3.4rem,13vw,6rem)] font-black leading-[0.95] text-gold"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           >
             {bookHero.title}
           </motion.h1>
 
           <motion.p
+            className="mt-2 text-[clamp(1.6rem,5vw,2.4rem)] font-bold text-ink"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+          >
+            {bookHero.subtitle}
+          </motion.p>
+
+          <motion.p
             className="mt-5 text-lg font-semibold text-mist sm:text-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
           >
             {bookHero.authors}
           </motion.p>

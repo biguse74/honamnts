@@ -14,16 +14,19 @@ import { ORDER_CONTRACT, formatMoney } from '../data/orderContract'
 
 // ── 히어로 ───────────────────────────────────────────────────────────────────
 export const bookHero = {
-  eyebrow: '시민언론 뉴탐사 · 6·3 지방선거 호남백서',
+  eyebrow: '6·3 지방선거 호남백서 · 시민언론 뉴탐사',
+  overline: '공천재난이 깨운', // 표지 오버라인
   title: ORDER_CONTRACT.product.title, // '불의 고리'
+  subtitle: '호남을 뒤흔들다', // 표지 부제
   authors: '강진구 · 박대용 지음',
-  // 표지 부제 기반
-  tagline: '민주당 공천이 곧 당선이던 호남, 그 단단한 고리에 생긴 균열의 기록.',
+  // 뒤표지 소개글 그대로
+  tagline:
+    '민주당 공천이 곧 당선이던 호남. 검증이 멈춘 자리에서 표심은 무엇을 심판했나 — 영광에서 신안·무안·진도·순천·전북까지 이어진 기록.',
   priceLine: `정가 ${formatMoney(ORDER_CONTRACT.product.unitPrice)} · 신국판 약 285쪽`,
   primaryCta: '예약하기',
   ctaTargetId: 'order',
-  coverImage: '/assets/book-cover.png', // 실제 표지(불의 고리 지도 제목판)
-  coverAlt: '『불의 고리』 표지 — 호남 민주당 의석 독점률의 균열(2022→2026) 지도',
+  coverImage: '/assets/book-cover.png', // 실제 앞표지(인쇄본에서 추출)
+  coverAlt: '『불의 고리』 앞표지 — 공천재난이 깨운 불의 고리, 호남을 뒤흔들다',
 }
 
 // ── 책소개 (발간사 근거 4단락) ───────────────────────────────────────────────
