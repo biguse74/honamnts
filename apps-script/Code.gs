@@ -54,6 +54,7 @@ var UNIT_PRICE = 30000
 var DELIVERY_FEE = 3000
 var FREE_DELIVERY_FROM_QTY = 3
 var DEFAULT_SHEET_NAME = 'Orders'
+var OPERATOR_VIEW_SHEET_NAME = '예약자명단'
 var DASHBOARD_SHEET_NAME = '운영대시보드'
 var BANK_CSV_SHEET_NAME = '입금CSV붙여넣기'
 var RECONCILIATION_SHEET_NAME = '입금대사결과'
@@ -74,6 +75,7 @@ function onOpen() {
     .createMenu('불의 고리 주문')
     .addItem('1. 운영 시트 초기 세팅', 'setupOrderWorkbook')
     .addItem('2. 주문 현황 새로고침', 'refreshOrderDashboard')
+    .addItem('예약자 명단 새로고침', 'refreshOperatorOrderView')
     .addItem('선택 주문 입금확인', 'markSelectedOrderPaid')
     .addItem('선택 주문 취소', 'cancelSelectedOrder')
     .addSeparator()
@@ -128,6 +130,7 @@ function setupOrderWorkbook() {
   var ss = getOrderSpreadsheet_()
   var orderSheet = getOrderSheet_()
   formatOrderSheet_(orderSheet)
+  refreshOperatorOrderView_()
   setupBankCsvSheet_(ss)
   setupResultSheet_(ss, RECONCILIATION_SHEET_NAME, getReconciliationColumns_())
   setupResultSheet_(ss, DELIVERY_EXPORT_SHEET_NAME, getDeliveryColumns_())
@@ -162,8 +165,19 @@ function refreshOrderDashboard() {
   sheet.getRange(2, 2).setNumberFormat('yyyy-mm-dd hh:mm:ss')
   sheet.getRange(9, 2).setNumberFormat('#,##0')
   sheet.autoResizeColumns(1, 2)
+  refreshOperatorOrderView_(orders)
 
   return { ok: true, summary: summary }
+}
+
+/**
+ * 실무자가 매일 보는 한국어 헤더 예약자 명단을 갱신한다.
+ * 계약 원장인 Orders 시트는 영어 키/컬럼 순서를 유지하고, 이 시트는 읽기 편한 운영용 보기로 쓴다.
+ */
+function refreshOperatorOrderView() {
+  var count = refreshOperatorOrderView_()
+  SpreadsheetApp.getUi().alert('예약자 명단 새로고침 완료\n' + count + '건')
+  return { ok: true, count: count }
 }
 
 /**
@@ -260,6 +274,7 @@ function submitOrder_(payload) {
     var orderNo = nextOrderNo_(sheet)
     var record = buildOrderRecord_(clean, orderNo)
     sheet.appendRow(rowFromRecord_(record))
+    refreshOperatorOrderView_()
 
     return { ok: true, orderNo: orderNo }
   } catch (err) {
@@ -444,6 +459,7 @@ function updatePayStatus(orderNo, payStatus) {
     if (!item) throw new Error('주문번호를 찾을 수 없습니다.')
 
     sheet.getRange(item.rowNumber, index.columns.payStatus + 1).setValue(payStatus)
+    refreshOperatorOrderView_()
     return { ok: true, orderNo: orderNo, payStatus: payStatus }
   } finally {
     lock.releaseLock()
@@ -493,6 +509,8 @@ function reconcileBankTransfers_(csvText, shouldApply) {
         })
       }
     })
+
+    if (shouldApply) refreshOperatorOrderView_()
 
     return {
       ok: true,
@@ -598,6 +616,57 @@ function getOrders_() {
     .sort(function (a, b) {
       return String(a.orderNo).localeCompare(String(b.orderNo))
     })
+}
+
+function refreshOperatorOrderView_(orders) {
+  var ss = getOrderSpreadsheet_()
+  var columns = getOperatorViewColumns_()
+  var headers = columns.map(function (column) {
+    return column.label
+  })
+  var sheet = setupOperatorViewSheet_(ss, headers)
+  var rows = (orders || getOrders_()).map(function (order) {
+    return columns.map(function (column) {
+      return order[column.key]
+    })
+  })
+
+  replaceDataRows_(sheet, rows, headers.length)
+  return rows.length
+}
+
+function setupOperatorViewSheet_(ss, headers) {
+  var sheet = getOrCreateSheet_(ss, OPERATOR_VIEW_SHEET_NAME)
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers])
+  sheet.setFrozenRows(1)
+  sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#ecfeff')
+  sheet.autoResizeColumns(1, headers.length)
+  return sheet
+}
+
+function getOperatorViewColumns_() {
+  return [
+    { key: 'orderNo', label: '주문번호' },
+    { key: 'createdAt', label: '주문시각' },
+    { key: 'name', label: '주문자' },
+    { key: 'phone', label: '연락처' },
+    { key: 'email', label: '이메일' },
+    { key: 'member', label: '회원여부' },
+    { key: 'qty', label: '수량' },
+    { key: 'signed', label: '서명본' },
+    { key: 'receiver', label: '받는분' },
+    { key: 'zip', label: '우편번호' },
+    { key: 'addr', label: '도로명주소' },
+    { key: 'addrDetail', label: '상세주소' },
+    { key: 'deliverNote', label: '배송메모' },
+    { key: 'payer', label: '입금자명' },
+    { key: 'receipt', label: '증빙' },
+    { key: 'message', label: '남기는말' },
+    { key: 'agree', label: '개인정보동의' },
+    { key: 'amount', label: '결제금액' },
+    { key: 'payMethod', label: '결제수단' },
+    { key: 'payStatus', label: '입금상태' },
+  ]
 }
 
 function summarizeOrders_(orders) {
