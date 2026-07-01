@@ -61,6 +61,13 @@ python -c "import fitz; d=fitz.open('honam_ring_notitle.pdf'); d[0].get_pixmap(m
 - `book-cover.png` ← `honam_ring.pdf` (제목판) · `honam-ring-map.png` ← `honam_ring_notitle.pdf` (무제판)
 - 코덱스가 둔 `public/assets/ring-of-fire-book.png`(임시 목업)는 미사용.
 
+### 재활용 사진 (호남뉴탐사 후원 랜딩 → 듀오톤 처리)
+기존 사이트 사진(`D:\NTS_website\hnn_donors_system\public-landing\images`)을 날것 대신
+**표지 톤(딥네이비→오렌지 #ED5125→웜) 트라이톤 듀오톤**으로 가공해 통일감을 맞췄다.
+방송 워터마크·자막은 크롭 제거. (Pillow `ImageOps.colorize`, black=(11,21,34) mid=(199,63,27) white=(243,197,140))
+- `author-duotone.jpg` ← `park_kang` : 지은이(강진구·박대용) 소개 블록
+- `scene-harbor-duotone.jpg` ← `field1`(신안 가거도 방파제) : 책소개 배경(하단 그라데이션 스크림)
+
 ## 환경변수 / 배포
 - 빌드 타임 환경변수 **없음**. 전송 방식은 런타임 자동 감지(위 참고).
 - GitHub Pages 자동 배포(`.github/workflows/deploy.yml`)가 `main` 푸시 시 `dist/` 전체를 올립니다 →

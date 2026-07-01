@@ -2,6 +2,7 @@ import BookHero from './sections/BookHero'
 import BookIntro from './sections/BookIntro'
 import BookPreview from './sections/BookPreview'
 import BookInfo from './sections/BookInfo'
+import BookAuthors from './sections/BookAuthors'
 import OrderForm from './sections/OrderForm'
 import BookFooter from './sections/BookFooter'
 
@@ -16,7 +17,9 @@ export default function BookApp() {
       <BookPreview />
       {/* 4. 책정보 */}
       <BookInfo />
-      {/* 5. 예약 주문 폼 */}
+      {/* 5. 지은이 */}
+      <BookAuthors />
+      {/* 6. 예약 주문 폼 */}
       <OrderForm />
       {/* 6. 푸터 */}
       <BookFooter />
