@@ -3,13 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="0; url=/book/" />
-    <title>불의 고리 — 예약판매 | 시민언론 뉴탐사</title>
-    <script>
-      location.replace('/book/')
-    </script>
+    <title>호남뉴탐사 — 곧 찾아뵙겠습니다</title>
+    <meta name="description" content="시민언론 뉴탐사 호남, 홈페이지 준비 중입니다. 『불의 고리』 예약판매와 후원은 지금 이용하실 수 있습니다." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="호남뉴탐사 — 곧 찾아뵙겠습니다" />
+    <meta property="og:description" content="홈페이지 준비 중. 『불의 고리』 예약판매·후원은 지금 이용 가능합니다." />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <style>
+      :root {
+        --navy: #0d1b2a;
+        --navy-800: #11233a;
+        --gold: #c69026;
+        --ember: #ed5125;
+        --ink: #ffffff;
+        --mist: #e2e8f0;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        font-family: 'Pretendard Variable', Pretendard, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        background:
+          radial-gradient(ellipse at 50% 32%, rgba(237, 81, 37, 0.16) 0%, transparent 46%),
+          radial-gradient(ellipse at 50% 100%, rgba(198, 144, 38, 0.14) 0%, transparent 50%),
+          linear-gradient(180deg, #07111d 0%, #0d1b2a 55%, #050a12 100%);
+        color: var(--mist);
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        overflow: hidden;
+        position: relative;
+      }
+      /* 불의 고리 모티프 — 은은한 링 */
+      .ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: min(78vw, 620px);
+        aspect-ratio: 1;
+        transform: translate(-50%, -54%);
+        border: 1px solid rgba(237, 81, 37, 0.35);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .ring::after {
+        content: '';
+        position: absolute;
+        inset: 26px;
+        border: 1px solid rgba(226, 232, 240, 0.06);
+        border-radius: 50%;
+      }
+      .wrap { position: relative; z-index: 1; max-width: 34rem; }
+      .eyebrow {
+        color: var(--gold);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        margin-bottom: 1.1rem;
+      }
+      h1 {
+        color: var(--ink);
+        font-size: clamp(2.6rem, 11vw, 4.2rem);
+        font-weight: 900;
+        line-height: 1.02;
+        letter-spacing: -0.01em;
+      }
+      .lead {
+        margin-top: 1.4rem;
+        font-size: clamp(1rem, 3.4vw, 1.2rem);
+        line-height: 1.7;
+        color: rgba(226, 232, 240, 0.82);
+      }
+      .actions {
+        margin-top: 2.4rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 1.6rem;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn-primary { background: var(--gold); color: var(--navy); box-shadow: 0 0 32px rgba(198, 144, 38, 0.35); }
+      .btn-ghost { border: 1px solid rgba(226, 232, 240, 0.28); color: var(--mist); }
+      .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+      .contact {
+        margin-top: 2.6rem;
+        font-size: 0.85rem;
+        color: rgba(226, 232, 240, 0.45);
+      }
+      .contact a { color: inherit; text-decoration: none; }
+    </style>
   </head>
   <body>
-    <p><a href="/book/">『불의 고리』 예약판매 페이지로 이동합니다.</a></p>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="eyebrow">시민언론 뉴탐사 · 호남</p>
+      <h1>곧 찾아뵙겠습니다</h1>
+      <p class="lead">
+        호남뉴탐사 홈페이지를 준비하고 있습니다.<br />
+        신간 예약판매와 후원은 지금 바로 이용하실 수 있습니다.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/book/">『불의 고리』 예약판매</a>
+        <a class="btn btn-ghost" href="/donate/">후원하기</a>
+      </div>
+      <p class="contact">문의 <a href="tel:01097172340">010-9717-2340</a></p>
+    </div>
   </body>
 </html>

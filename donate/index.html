@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>후원하기 — 호남뉴탐사</title>
+    <script>
+      // TODO: happynanum 후원 페이지 실제 URL로 교체 (빈 값이면 리디렉션하지 않고 안내만 표시)
+      var HAPPYNANUM_URL = ''
+      if (HAPPYNANUM_URL) location.replace(HAPPYNANUM_URL)
+    </script>
+    <style>
+      body {
+        font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+        background: #0d1b2a;
+        color: #e2e8f0;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+      a { color: #c69026; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p id="msg">후원 페이지를 준비하고 있습니다.</p>
+      <p><a href="/">← 호남뉴탐사</a></p>
+    </div>
+    <script>
+      if (HAPPYNANUM_URL) {
+        document.getElementById('msg').textContent = '후원 페이지로 이동합니다…'
+      }
+    </script>
+  </body>
+</html>

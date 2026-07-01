@@ -33,9 +33,10 @@ export default defineConfig({
   plugins: [react(), devOrderMock()],
   build: {
     rollupOptions: {
-      // 멀티 페이지: 발기인 랜딩(/) + 『불의 고리』 예약판매(/book/)
+      // 멀티 페이지: 오픈 예정(/) + 후원 리디렉션(/donate/) + 『불의 고리』 예약판매(/book/)
       input: {
         main: 'index.html',
+        donate: 'donate/index.html',
         book: 'book/index.html',
       },
     },
