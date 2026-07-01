@@ -31,6 +31,16 @@ export default function BookAuthors() {
                 {bookAuthors.role}
               </p>
               <p className="mt-5 text-base leading-relaxed text-mist/80">{bookAuthors.bio}</p>
+
+              {/* 취재 크레딧 */}
+              <div className="mt-6 border-t border-mist/10 pt-5">
+                <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-mist/70">
+                  <span className="font-semibold tracking-[0.06em] text-mist/50">
+                    {bookAuthors.reporterLabel}
+                  </span>
+                  <span>{bookAuthors.reporters}</span>
+                </p>
+              </div>
             </div>
           </div>
         </Reveal>

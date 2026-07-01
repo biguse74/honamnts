@@ -61,10 +61,10 @@ python -c "import fitz; d=fitz.open('honam_ring_notitle.pdf'); d[0].get_pixmap(m
 - `book-cover.png` ← `honam_ring.pdf` (제목판) · `honam-ring-map.png` ← `honam_ring_notitle.pdf` (무제판)
 - 코덱스가 둔 `public/assets/ring-of-fire-book.png`(임시 목업)는 미사용.
 
-### 재활용 사진 (호남뉴탐사 후원 랜딩 → 듀오톤 처리)
+### 재활용 사진 (호남뉴탐사 후원 랜딩 → 네이비 톤 처리)
 기존 사이트 사진(`D:\NTS_website\hnn_donors_system\public-landing\images`)을 날것 대신
-**표지 톤(딥네이비→오렌지 #ED5125→웜) 트라이톤 듀오톤**으로 가공해 통일감을 맞췄다.
-방송 워터마크·자막은 크롭 제거. (Pillow `ImageOps.colorize`, black=(11,21,34) mid=(199,63,27) white=(243,197,140))
+**네이비 톤 모노크롬**으로 가공해 사이트와 통일했다(붉은기 배제).
+방송 워터마크·자막은 크롭 제거. (Pillow `ImageOps.colorize`, black=(13,27,42) mid=(120,120,126) white=(236,233,226), midpoint 118)
 - `author-duotone.jpg` ← `park_kang` : 지은이(강진구·박대용) 소개 블록
 - `scene-harbor-duotone.jpg` ← `field1`(신안 가거도 방파제) : 책소개 배경(하단 그라데이션 스크림)
 
