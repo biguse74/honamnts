@@ -45,12 +45,21 @@ src/book/
 > 계좌·배송비·주문 스키마는 계약서(`orderContract.ts`) 소유자가 갱신합니다.
 > 프런트는 이 값을 화면에 표시만 합니다. `amount`는 서버가 최종 계산합니다.
 
-## 콘텐츠 교체 — `src/book/content.ts`
-아래는 **실제 원고 도착 전 임시 카피**입니다. 확정 원고로 교체하세요.
-- `bookIntro.paragraphs` — 책소개 4단락
-- `bookPreview.toc` — 목차 요약, `bookPreview.mapLabel/mapCaption` — 「불의 고리」 지도 무제판
-- 지도 실제 도판: `src/components/ui/ImagePlaceholder`가 걸린 자리를 실제 `<img src="/assets/…">`로 교체
-- 책정보(`bookInfo`)의 판형·분량·지은이·펴낸곳은 제공값으로 반영 완료
+## 콘텐츠 — `src/book/content.ts`
+카피·목차·표지는 **호남백서 조판 소스**(`D:\호남백서\03_조판`)의 실제 원고 기준으로 반영 완료.
+- `bookIntro.paragraphs` — 발간사(vA.tex) 근거 4단락
+- `bookPreview.toc` — 실제 목차(TOC.tex): 여는 글·프롤로그·제1~8부·부록 8종 요약
+- 책정보(`bookInfo`) — 제목/부제/판형/분량/정가/지은이/펴낸곳
+
+### 표지·지도 이미지 (PDF → PNG)
+표지·지도는 소스의 PDF를 PNG로 렌더해 `public/assets/`에 둠. 원고 갱신 시 재생성:
+```bash
+# PyMuPDF 사용. 소스 img 폴더에서 실행
+python -c "import fitz; d=fitz.open('honam_ring.pdf'); d[0].get_pixmap(matrix=fitz.Matrix(3,3)).save(r'D:\HNNTS\public\assets\book-cover.png')"
+python -c "import fitz; d=fitz.open('honam_ring_notitle.pdf'); d[0].get_pixmap(matrix=fitz.Matrix(2.6,2.6)).save(r'D:\HNNTS\public\assets\honam-ring-map.png')"
+```
+- `book-cover.png` ← `honam_ring.pdf` (제목판) · `honam-ring-map.png` ← `honam_ring_notitle.pdf` (무제판)
+- 코덱스가 둔 `public/assets/ring-of-fire-book.png`(임시 목업)는 미사용.
 
 ## 환경변수 / 배포
 - 빌드 타임 환경변수 **없음**. 전송 방식은 런타임 자동 감지(위 참고).
