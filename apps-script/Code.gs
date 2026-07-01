@@ -62,6 +62,7 @@ var DEFAULT_PAY_METHOD = '무통장'
 var DEFAULT_PAY_STATUS = '대기'
 var CONFIRMED_PAY_STATUS = '입금확인'
 var CANCELED_PAY_STATUS = '취소'
+var ORDER_TIME_ZONE = 'Asia/Seoul'
 var PHONE_RE = /^010-\d{4}-\d{4}$/
 
 /**
@@ -320,7 +321,7 @@ function validatePayload_(payload) {
 function buildOrderRecord_(payload, orderNo) {
   return {
     orderNo: orderNo,
-    createdAt: new Date().toISOString(),
+    createdAt: nowInOrderTimeZoneIso_(),
     name: payload.name,
     phone: payload.phone,
     email: payload.email,
@@ -340,6 +341,10 @@ function buildOrderRecord_(payload, orderNo) {
     payMethod: DEFAULT_PAY_METHOD,
     payStatus: DEFAULT_PAY_STATUS,
   }
+}
+
+function nowInOrderTimeZoneIso_() {
+  return Utilities.formatDate(new Date(), ORDER_TIME_ZONE, "yyyy-MM-dd'T'HH:mm:ss") + '+09:00'
 }
 
 function calculateAmount_(qty) {

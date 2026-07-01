@@ -103,6 +103,7 @@ export const ORDER_CONTRACT = {
 } as const
 
 const PHONE_PATTERN = /^010-\d{4}-\d{4}$/
+const KST_OFFSET_MINUTES = 9 * 60
 
 export function formatMoney(value: number) {
   return `${value.toLocaleString('ko-KR')}원`
@@ -122,6 +123,11 @@ export function calculateShipping(qty: number) {
 
 export function calculateAmount(qty: number) {
   return ORDER_CONTRACT.product.unitPrice * qty + calculateShipping(qty)
+}
+
+export function getKoreanIsoTimestamp(date = new Date()) {
+  const kst = new Date(date.getTime() + KST_OFFSET_MINUTES * 60 * 1000)
+  return `${kst.toISOString().slice(0, 19)}+09:00`
 }
 
 export function getInitialOrderPayload(): OrderPayload {
@@ -202,7 +208,7 @@ export function validateOrderPayload(payload: Partial<OrderPayload>) {
 export function createOrderRecord(
   payload: OrderPayload,
   orderNo: string,
-  createdAt = new Date().toISOString(),
+  createdAt = getKoreanIsoTimestamp(),
 ): OrderRecord {
   const cleanPayload = sanitizeOrderPayload(payload)
   const validation = validateOrderPayload(cleanPayload)
