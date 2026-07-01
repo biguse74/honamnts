@@ -55,6 +55,7 @@ var DELIVERY_FEE = 3000
 var FREE_DELIVERY_FROM_QTY = 3
 var DEFAULT_SHEET_NAME = 'Orders'
 var OPERATOR_VIEW_SHEET_NAME = '예약자명단'
+var OPERATOR_GUIDE_SHEET_NAME = '사용설명서'
 var DASHBOARD_SHEET_NAME = '운영대시보드'
 var BANK_CSV_SHEET_NAME = '입금CSV붙여넣기'
 var RECONCILIATION_SHEET_NAME = '입금대사결과'
@@ -74,6 +75,7 @@ function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('불의 고리 주문')
     .addItem('1. 운영 시트 초기 세팅', 'setupOrderWorkbook')
+    .addItem('사용설명서 새로고침', 'refreshOperatorGuideSheet')
     .addItem('2. 주문 현황 새로고침', 'refreshOrderDashboard')
     .addItem('예약자 명단 새로고침', 'refreshOperatorOrderView')
     .addItem('선택 주문 입금확인', 'markSelectedOrderPaid')
@@ -130,12 +132,23 @@ function setupOrderWorkbook() {
   var ss = getOrderSpreadsheet_()
   var orderSheet = getOrderSheet_()
   formatOrderSheet_(orderSheet)
+  refreshOperatorGuideSheet_(ss)
   refreshOperatorOrderView_()
   setupBankCsvSheet_(ss)
   setupResultSheet_(ss, RECONCILIATION_SHEET_NAME, getReconciliationColumns_())
   setupResultSheet_(ss, DELIVERY_EXPORT_SHEET_NAME, getDeliveryColumns_())
   refreshOrderDashboard()
   SpreadsheetApp.getUi().alert('운영 시트 초기 세팅이 완료되었습니다.')
+  return { ok: true }
+}
+
+/**
+ * 실무자용 사용 설명서를 구글 시트 탭으로 만든다.
+ */
+function refreshOperatorGuideSheet() {
+  var ss = getOrderSpreadsheet_()
+  refreshOperatorGuideSheet_(ss)
+  SpreadsheetApp.getUi().alert('사용설명서 시트 새로고침 완료')
   return { ok: true }
 }
 
@@ -701,6 +714,53 @@ function summarizeOrders_(orders) {
   )
 }
 
+function refreshOperatorGuideSheet_(ss) {
+  var sheet = getOrCreateSheet_(ss, OPERATOR_GUIDE_SHEET_NAME)
+  var rows = getOperatorGuideRows_()
+
+  sheet.clear()
+  sheet.setFrozenRows(4)
+  sheet.setTabColor('#2563eb')
+  sheet.getRange(1, 1, rows.length, 4).setValues(rows)
+  sheet.getRange(1, 1, 1, 4).merge()
+  sheet.getRange(2, 1, 1, 4).merge()
+  sheet.getRange(4, 1, 1, 4).setFontWeight('bold').setBackground('#dbeafe')
+  sheet.getRange(1, 1).setFontSize(16).setFontWeight('bold').setBackground('#1d4ed8').setFontColor('#ffffff')
+  sheet.getRange(2, 1).setBackground('#eff6ff').setWrap(true)
+  sheet.getRange(5, 1, Math.max(1, rows.length - 4), 4).setWrap(true).setVerticalAlignment('top')
+  sheet.getRange(1, 1, rows.length, 4).setBorder(true, true, true, true, true, true, '#e5e7eb', SpreadsheetApp.BorderStyle.SOLID)
+  sheet.setColumnWidth(1, 120)
+  sheet.setColumnWidth(2, 260)
+  sheet.setColumnWidth(3, 360)
+  sheet.setColumnWidth(4, 360)
+  sheet.autoResizeRows(1, rows.length)
+  return { ok: true, sheetName: sheet.getName() }
+}
+
+function getOperatorGuideRows_() {
+  return [
+    ['『불의 고리』 예약판매 구글 시트 사용 설명서', '', '', ''],
+    ['실무자는 예약자명단, 운영대시보드, 입금CSV붙여넣기, 입금대사결과, 배송명단을 사용합니다. Orders는 시스템 원장이므로 직접 편집하지 않습니다.', '', '', ''],
+    ['', '', '', ''],
+    ['구분', '해야 할 일', '어디서/어떻게', '주의사항'],
+    ['매일 볼 곳', '새 주문과 입금상태를 확인합니다.', '예약자명단 시트를 봅니다. 주문번호, 주문시각, 주문자, 연락처, 입금자명, 결제금액, 입금상태가 한국어로 표시됩니다.', 'Orders 시트는 영어 헤더가 있어도 정상입니다. 헤더와 컬럼 순서를 바꾸지 마세요.'],
+    ['주문상태', '상태 뜻을 확인합니다.', '대기 = 입금 확인 전 / 입금확인 = 배송 준비 대상 / 취소 = 취소 주문', '배송 대상은 입금확인 상태만 기준으로 잡습니다.'],
+    ['처음 한 번', '운영 시트를 세팅합니다.', '불의 고리 주문 → 1. 운영 시트 초기 세팅을 실행합니다. 이어서 불의 고리 주문 → 6. 주문 시트 권한 보호를 실행합니다.', '처음 세팅 후에는 반복 실행할 필요가 거의 없습니다.'],
+    ['새 주문 확인', '예약자명단을 최신 상태로 바꿉니다.', '불의 고리 주문 → 예약자 명단 새로고침을 누릅니다. 전체 현황은 불의 고리 주문 → 2. 주문 현황 새로고침을 누릅니다.', '주문시각은 한국 시각 기준입니다.'],
+    ['입금 CSV 준비', '은행 거래내역 CSV를 붙여넣습니다.', '입금CSV붙여넣기 시트에 은행 CSV를 A1부터 표 형태로 붙여넣거나, A2 한 셀에 CSV 원문 전체를 붙여넣습니다.', '은행 파일에는 개인정보와 거래정보가 있으니 담당자만 다룹니다.'],
+    ['입금 대사', '주문과 입금내역을 자동 비교합니다.', '불의 고리 주문 → 3. 입금 CSV 대사 미리보기를 누른 뒤 입금대사결과 시트를 확인합니다.', '주문번호, 입금액, 입금자명이 맞아야 자동 매칭됩니다.'],
+    ['입금 반영', '매칭된 주문을 입금확인으로 바꿉니다.', '입금대사결과에서 문제가 없으면 불의 고리 주문 → 4. 매칭분 입금확인 반영을 누릅니다.', '확인필요 행은 먼저 검토한 뒤 처리합니다.'],
+    ['수동 입금확인', '자동 매칭이 안 된 주문을 직접 처리합니다.', '예약자명단, Orders, 또는 입금대사결과에서 해당 주문 행을 클릭한 뒤 불의 고리 주문 → 선택 주문 입금확인을 누릅니다.', '주문번호가 있는 행을 선택해야 합니다. 입금자명과 금액이 확실할 때만 처리하세요.'],
+    ['수동 취소', '취소 주문을 처리합니다.', '해당 주문 행을 클릭한 뒤 불의 고리 주문 → 선택 주문 취소를 누릅니다.', '취소 사유는 필요하면 내부 메모로 따로 남깁니다.'],
+    ['배송 명단', '배송업체 전달용 목록을 만듭니다.', '불의 고리 주문 → 5. 배송 명단 생성을 누릅니다. 배송명단 시트에 입금확인 주문만 모입니다.', '배송업체에는 배송명단만 전달하세요. Orders 전체를 전달하지 마세요.'],
+    ['개인정보', '주문자 정보를 안전하게 다룹니다.', '시트 공유는 실제 담당자에게만 허용하고, 화면 캡처나 CSV 파일을 외부 채팅방에 올리지 않습니다.', '업무가 끝난 은행 CSV와 배송 파일은 정해진 보관 기간에 맞춰 삭제합니다.'],
+    ['메뉴가 안 보일 때', '스프레드시트를 다시 불러옵니다.', '브라우저 새로고침 후 상단 메뉴의 불의 고리 주문을 확인합니다.', '그래도 안 보이면 관리자에게 Apps Script 권한이나 배포 상태 확인을 요청합니다.'],
+    ['새 주문이 안 보일 때', '원장과 보기 시트를 확인합니다.', '예약자 명단 새로고침을 누른 뒤에도 안 보이면 Orders 시트에 주문이 들어왔는지 확인합니다.', 'Orders에도 없으면 사이트 주문 접수/API 상태를 관리자에게 확인 요청합니다.'],
+    ['주문번호 없이 입금', '입금자명과 금액으로 주문을 찾습니다.', '예약자명단에서 입금자명과 금액이 같은 주문을 찾고, 확실할 때만 선택 주문 입금확인으로 처리합니다.', '동명이인이나 같은 금액 주문이 있으면 임의 처리하지 말고 확인 후 처리합니다.'],
+    ['테스트 주문', '운영 전 테스트 주문을 정리합니다.', '테스트 주문 행을 선택하고 선택 주문 취소를 누르거나 관리자와 상의해 원장에서 제외합니다.', '실제 주문과 섞이지 않게 운영 시작 전에 정리합니다.'],
+  ]
+}
+
 function setupBankCsvSheet_(ss) {
   var sheet = getOrCreateSheet_(ss, BANK_CSV_SHEET_NAME)
   if (sheet.getLastRow() === 0) {
@@ -832,7 +892,7 @@ function updateSelectedOrderStatus_(payStatus) {
   var ui = SpreadsheetApp.getUi()
   var orderNo = getSelectedOrderNo_()
   if (!orderNo) {
-    ui.alert('주문번호를 찾지 못했습니다. Orders 또는 입금대사결과 시트에서 주문 행을 선택해 주세요.')
+    ui.alert('주문번호를 찾지 못했습니다. 예약자명단, Orders, 또는 입금대사결과 시트에서 주문 행을 선택해 주세요.')
     return { ok: false, message: 'selected order not found' }
   }
 

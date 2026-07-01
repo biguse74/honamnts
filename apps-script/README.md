@@ -2,7 +2,7 @@
 
 `Code.gs`는 주문 데이터 계약서의 컬럼 순서와 검증 규칙을 기준으로 동작하는 Google Apps Script 백엔드입니다.
 
-실무자가 매일 볼 간단한 사용 설명서는 [operator-sheet-guide.md](./operator-sheet-guide.md)에 따로 정리했습니다.
+실무자가 매일 볼 간단한 사용 설명서는 Apps Script가 구글 시트의 `사용설명서` 탭으로 만들어 줍니다.
 
 ## 1. 최초 설정
 
@@ -24,6 +24,7 @@ Apps Script 프로젝트의 **스크립트 속성**에 아래 값을 둡니다.
 초기 세팅은 아래 시트를 만듭니다.
 
 - `Orders`: 예약자 원장
+- `사용설명서`: 실무자용 시트 사용 설명서
 - `예약자명단`: 실무자용 한국어 헤더 예약자 보기
 - `운영대시보드`: 전체 주문·입금확인·수량·금액 요약
 - `입금CSV붙여넣기`: 은행 CSV 붙여넣기 작업 공간
@@ -74,6 +75,7 @@ Apps Script 프로젝트의 **스크립트 속성**에 아래 값을 둡니다.
 - `submitOrder(payload)`: 계약 검증, 서버 금액 계산, `HB-0001` 형식 주문번호 발급, 시트 append, `{ ok:true, orderNo }` 반환
 - `doPost(e)`: HTTP 웹앱 진입점. 실패 시 `{ message }` JSON 반환
 - `setupOrderWorkbook()`: 운영 시트 초기 세팅
+- `refreshOperatorGuideSheet()`: 구글 시트 안에 실무자용 `사용설명서` 생성/갱신
 - `refreshOrderDashboard()`: 운영대시보드 갱신
 - `refreshOperatorOrderView()`: 한국어 헤더 `예약자명단` 갱신
 - `markSelectedOrderPaid()`: 현재 선택 행의 주문을 입금확인 처리
