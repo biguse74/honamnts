@@ -2,6 +2,8 @@
 
 `Code.gs`는 주문 데이터 계약서의 컬럼 순서와 검증 규칙을 기준으로 동작하는 Google Apps Script 백엔드입니다.
 
+실무자가 매일 볼 간단한 사용 설명서는 [operator-sheet-guide.md](./operator-sheet-guide.md)에 따로 정리했습니다.
+
 ## 1. 최초 설정
 
 Apps Script 프로젝트의 **스크립트 속성**에 아래 값을 둡니다.
