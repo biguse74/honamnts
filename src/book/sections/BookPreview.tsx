@@ -1,6 +1,5 @@
 import { bookPreview } from '../content'
 import SectionHeading from '../../components/ui/SectionHeading'
-import ImagePlaceholder from '../../components/ui/ImagePlaceholder'
 import Reveal from '../../components/ui/Reveal'
 
 export default function BookPreview() {
@@ -17,7 +16,14 @@ export default function BookPreview() {
           {/* 지도 무제판 */}
           <Reveal>
             <figure>
-              <ImagePlaceholder label={bookPreview.mapLabel} aspect="aspect-[4/3]" />
+              <div className="overflow-hidden rounded-2xl border border-mist/10 bg-black">
+                <img
+                  src={bookPreview.mapImage}
+                  alt={bookPreview.mapAlt}
+                  loading="lazy"
+                  className="mx-auto block w-full max-w-sm"
+                />
+              </div>
               <figcaption className="mt-3 text-sm leading-relaxed text-mist/55">
                 {bookPreview.mapCaption}
               </figcaption>
