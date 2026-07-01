@@ -7,7 +7,6 @@ import {
   getInitialOrderPayload,
   sanitizeOrderPayload,
   validateOrderPayload,
-  calculateShipping,
   calculateAmount,
   normalizePhone,
   formatMoney,
@@ -72,7 +71,6 @@ export default function OrderForm() {
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
   }
 
-  const shipping = calculateShipping(payload.qty)
   const amount = calculateAmount(payload.qty)
 
   function changeQty(delta: number) {
@@ -434,8 +432,8 @@ export default function OrderForm() {
                   <dd>{formatMoney(ORDER_CONTRACT.product.unitPrice * payload.qty)}</dd>
                 </div>
                 <div className="flex justify-between text-mist/75">
-                  <dt>배송비 ({ORDER_CONTRACT.delivery.policyLabel})</dt>
-                  <dd>{shipping === 0 ? '무료' : formatMoney(shipping)}</dd>
+                  <dt>배송비</dt>
+                  <dd className="text-gold">포함</dd>
                 </div>
                 <div className="mt-3 flex justify-between border-t border-gold/20 pt-3 text-lg font-bold text-ink">
                   <dt>합계</dt>
@@ -443,7 +441,7 @@ export default function OrderForm() {
                 </div>
               </dl>
               <p className="mt-3 text-xs text-mist/45">
-                최종 결제 금액은 주문 접수 시 서버에서 확정됩니다.
+                정가에 배송비가 포함되어 있습니다. 최종 금액은 접수 시 서버에서 확정됩니다.
               </p>
             </div>
 
