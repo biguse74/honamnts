@@ -453,8 +453,8 @@ export default function OrderForm() {
                 </div>
               </dl>
               <p className="mt-3 text-xs leading-relaxed text-mist/45">
-                도서 대금과 택배비를 합한 금액입니다. 주소 오류·장기 부재 등으로 반송될 경우
-                반송비 2,400원이 부과됩니다. 최종 금액은 접수 시 서버에서 확정됩니다.
+                도서 대금과 택배비를 합한 금액입니다. 주소 오류·장기 부재로 반송될 경우 반송비
+                2,400원이 부과됩니다.
               </p>
             </div>
 

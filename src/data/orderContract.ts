@@ -68,7 +68,7 @@ export const ORDER_CONTRACT = {
     title: '불의 고리',
     eyebrow: '예약판매',
     subtitle: '발간 일정과 배송 안내를 받을 예약 주문을 접수합니다.',
-    unitPrice: 30000,
+    unitPrice: 29000,
     heroImage: '/assets/ring-of-fire-book.png',
   },
   delivery: {
