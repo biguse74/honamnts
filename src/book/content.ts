@@ -90,6 +90,7 @@ export const bookInfo = {
     { label: '부제', value: '6·3 지방선거 호남백서' },
     { label: '판형', value: '신국판 (152 × 225 mm)' },
     { label: '분량', value: '약 285쪽' },
+    { label: '인쇄', value: '본문 올컬러' },
     { label: '정가', value: formatMoney(ORDER_CONTRACT.product.unitPrice) },
     { label: '지은이', value: '강진구 · 박대용' },
     { label: '펴낸곳', value: '시민언론 뉴탐사' },
