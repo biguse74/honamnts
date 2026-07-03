@@ -22,7 +22,7 @@ export const bookHero = {
   // 뒤표지 소개글 그대로
   tagline:
     '민주당 공천이 곧 당선이던 호남. 검증이 멈춘 자리에서 표심은 무엇을 심판했나 — 영광에서 신안·무안·진도·순천·전북까지 이어진 기록.',
-  priceLine: `정가 ${formatMoney(ORDER_CONTRACT.product.unitPrice)}(배송비 포함) · 신국판 약 285쪽`,
+  priceLine: `정가 ${formatMoney(ORDER_CONTRACT.product.unitPrice)} · 택배비 5,000원 · 신국판 약 285쪽`,
   primaryCta: '예약하기',
   ctaTargetId: 'order',
   coverImage: '/assets/book-cover.png', // 실제 앞표지(인쇄본에서 추출)

@@ -7,6 +7,7 @@ import {
   getInitialOrderPayload,
   sanitizeOrderPayload,
   validateOrderPayload,
+  calculateShipping,
   calculateAmount,
   normalizePhone,
   formatMoney,
@@ -71,6 +72,7 @@ export default function OrderForm() {
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }))
   }
 
+  const shipping = calculateShipping(payload.qty)
   const amount = calculateAmount(payload.qty)
 
   function changeQty(delta: number) {
@@ -274,6 +276,16 @@ export default function OrderForm() {
                 배송지
               </legend>
 
+              {/* 주소 정확 입력 안내 */}
+              <div className="flex gap-2 rounded-lg border border-gold/30 bg-gold/5 px-4 py-3 text-sm leading-relaxed text-mist/85">
+                <span className="text-gold">!</span>
+                <span>
+                  받으실 <span className="font-semibold text-ink">주소를 정확히</span> 입력해 주세요.
+                  주소 오류나 장기 부재로 반송되면 재발송 시 반송비{' '}
+                  <span className="font-semibold text-ink">2,400원</span>이 부과됩니다.
+                </span>
+              </div>
+
               <label className="flex cursor-pointer items-center gap-3">
                 <input
                   type="checkbox"
@@ -432,16 +444,17 @@ export default function OrderForm() {
                   <dd>{formatMoney(ORDER_CONTRACT.product.unitPrice * payload.qty)}</dd>
                 </div>
                 <div className="flex justify-between text-mist/75">
-                  <dt>배송비</dt>
-                  <dd className="text-gold">포함</dd>
+                  <dt>택배비</dt>
+                  <dd>{formatMoney(shipping)}</dd>
                 </div>
                 <div className="mt-3 flex justify-between border-t border-gold/20 pt-3 text-lg font-bold text-ink">
                   <dt>합계</dt>
                   <dd className="text-gold">{formatMoney(amount)}</dd>
                 </div>
               </dl>
-              <p className="mt-3 text-xs text-mist/45">
-                정가에 배송비가 포함되어 있습니다. 최종 금액은 접수 시 서버에서 확정됩니다.
+              <p className="mt-3 text-xs leading-relaxed text-mist/45">
+                도서 대금과 택배비를 합한 금액입니다. 주소 오류·장기 부재 등으로 반송될 경우
+                반송비 2,400원이 부과됩니다. 최종 금액은 접수 시 서버에서 확정됩니다.
               </p>
             </div>
 

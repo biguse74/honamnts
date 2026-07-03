@@ -72,9 +72,9 @@ export const ORDER_CONTRACT = {
     heroImage: '/assets/ring-of-fire-book.png',
   },
   delivery: {
-    fee: 0,
-    freeFromQty: 1,
-    policyLabel: '배송비 포함',
+    fee: 5000,
+    freeFromQty: 999,
+    policyLabel: '택배비 5,000원',
   },
   bank: {
     bank: '우리은행',
