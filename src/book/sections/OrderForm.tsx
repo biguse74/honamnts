@@ -281,8 +281,8 @@ export default function OrderForm() {
                 <span className="text-gold">!</span>
                 <span>
                   받으실 <span className="font-semibold text-ink">주소를 정확히</span> 입력해 주세요.
-                  주소 오류나 장기 부재로 반송되면 재발송 시 반송비{' '}
-                  <span className="font-semibold text-ink">2,400원</span>이 부과됩니다.
+                  주소 오류나 장기 부재로 반송되면 재발송 택배비{' '}
+                  <span className="font-semibold text-ink">5,000원</span>이 추가됩니다.
                 </span>
               </div>
 
@@ -453,8 +453,7 @@ export default function OrderForm() {
                 </div>
               </dl>
               <p className="mt-3 text-xs leading-relaxed text-mist/45">
-                도서 대금과 택배비를 합한 금액입니다. 주소 오류·장기 부재로 반송될 경우 반송비
-                2,400원이 부과됩니다.
+                도서 대금과 택배비를 합한 금액입니다.
               </p>
             </div>
 
