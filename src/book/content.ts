@@ -47,7 +47,7 @@ export const bookIntro = {
 // ── 지은이 · 취재 ────────────────────────────────────────────────────────────
 export const bookAuthors = {
   eyebrow: '지은이 · 취재',
-  title: '끝까지 따라간 사람들',
+  title: '끝까지 기록한 사람들',
   photo: '/assets/author-duotone.jpg', // 실사진(호남뉴탐사) 네이비 톤 처리
   photoAlt: '『불의 고리』 지은이 강진구·박대용 기자',
   names: '강진구 · 박대용',
