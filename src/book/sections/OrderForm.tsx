@@ -484,7 +484,9 @@ export default function OrderForm() {
                   <dd>{formatMoney(ORDER_CONTRACT.product.unitPrice * payload.qty)}</dd>
                 </div>
                 <div className="flex justify-between text-mist/75">
-                  <dt>택배비</dt>
+                  <dt>
+                    택배비 <span className="text-mist/45">(우체국택배)</span>
+                  </dt>
                   <dd>{formatMoney(shipping)}</dd>
                 </div>
                 <div className="mt-3 flex justify-between border-t border-gold/20 pt-3 text-lg font-bold text-ink">
