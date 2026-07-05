@@ -11,7 +11,7 @@ export default function BookFooter() {
             {bookFooter.note}
           </p>
           <a
-            href={`tel:${bookFooter.contactTel.replace(/-/g, '')}`}
+            href={`sms:${bookFooter.contactTel.replace(/-/g, '')}`}
             className="mt-4 inline-block text-sm font-medium text-mist/70 transition-colors hover:text-gold"
           >
             {bookFooter.contact}
