@@ -61,6 +61,7 @@ export default function OrderForm() {
   const [payload, setPayload] = useState<OrderPayload>(getInitialOrderPayload())
   const [errors, setErrors] = useState<OrderFieldErrors>({})
   const [differentReceiver, setDifferentReceiver] = useState(false)
+  const [payerSame, setPayerSame] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [result, setResult] = useState<SubmitOrderResult | null>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -163,7 +164,10 @@ export default function OrderForm() {
                   id="name"
                   className={fieldClass(!!errors.name)}
                   value={payload.name}
-                  onChange={(e) => set('name', e.target.value)}
+                  onChange={(e) => {
+                    set('name', e.target.value)
+                    if (payerSame) set('payer', e.target.value)
+                  }}
                   placeholder="성함"
                 />
               </Field>
@@ -391,21 +395,40 @@ export default function OrderForm() {
                 <p className="mt-1.5 text-xs text-mist/45">{ORDER_CONTRACT.copy.pendingPg}</p>
               </Field>
 
-              <Field
-                id="payer"
-                label="입금자명"
-                required
-                error={errors.payer}
-                hint="입금하실 분의 성함"
-              >
+              <div>
+                <div className="mb-1.5 flex items-center justify-between gap-2">
+                  <label
+                    htmlFor="payer"
+                    className="flex items-center gap-1 text-sm font-medium text-mist"
+                  >
+                    입금자명<span className="text-gold">*</span>
+                  </label>
+                  <label className="flex cursor-pointer items-center gap-1.5 text-xs text-mist/70">
+                    <input
+                      type="checkbox"
+                      checked={payerSame}
+                      onChange={(e) => {
+                        setPayerSame(e.target.checked)
+                        if (e.target.checked) set('payer', payload.name)
+                      }}
+                      className="h-4 w-4 accent-gold"
+                    />
+                    주문자와 동일
+                  </label>
+                </div>
                 <input
                   id="payer"
-                  className={fieldClass(!!errors.payer)}
+                  readOnly={payerSame}
+                  className={`${fieldClass(!!errors.payer)} ${payerSame ? 'opacity-70' : ''}`}
                   value={payload.payer}
                   onChange={(e) => set('payer', e.target.value)}
                   placeholder="입금자명"
                 />
-              </Field>
+                {!errors.payer && !payerSame && (
+                  <p className="mt-1 text-xs text-mist/45">입금하실 분의 성함</p>
+                )}
+                {errors.payer && <p className="mt-1 text-xs text-red-400">{errors.payer}</p>}
+              </div>
 
               <Field id="receipt" label="증빙" required error={errors.receipt}>
                 <select
