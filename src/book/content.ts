@@ -101,6 +101,6 @@ export const bookInfo = {
 export const bookFooter = {
   publisher: '시민언론 뉴탐사',
   note: '『불의 고리』 예약판매 · 발간 일정과 배송은 입력하신 연락처로 안내드립니다.',
-  contact: '문의 010-9717-2340',
-  contactTel: '010-9717-2340',
+  contact: '문의 010-4330-5430',
+  contactTel: '010-4330-5430',
 }

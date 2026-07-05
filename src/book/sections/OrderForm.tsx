@@ -576,7 +576,7 @@ function SuccessCard({ payload, orderNo }: { payload: OrderPayload; orderNo: str
         </dl>
 
         <p className="mt-6 text-xs leading-relaxed text-mist/45">
-          발간 일정과 배송은 입력하신 연락처로 안내드립니다. 문의 010-9717-2340
+          발간 일정과 배송은 입력하신 연락처로 안내드립니다. 문의 010-4330-5430
         </p>
       </div>
     </Reveal>
