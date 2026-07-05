@@ -41,6 +41,6 @@ location = /api/order {
 Apps Script:
 
 - LockService로 `HB-0001` 증가 발급
-- `amount = 30000 * qty + 배송비` 최종 계산
+- `amount = 29000 * qty + 배송비 5000원` 최종 계산
 - `createdAt`, `payStatus="대기"` 생성
 - 계약 컬럼 순서로 Google Sheet append

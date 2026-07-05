@@ -38,8 +38,8 @@ src/book/
 ## 상수 (확정 필요 항목) — `orderContract.ts`
 | 항목 | 현재 값 | 비고 |
 |---|---|---|
-| 단가 | 30,000원 | 확정 |
-| 배송비 | 기본 3,000원 / **3권 이상 무료** | `delivery.fee`, `delivery.freeFromQty` |
+| 단가 | 29,000원 | 확정 |
+| 배송비 | 택배비 5,000원 / 무료배송 없음 | `delivery.fee`, `delivery.freeFromQty` |
 | 입금 계좌 | **미지정 (`needsConfirmation: true`)** | 확정 시 `bank.{bank,number,holder}` 채우고 `needsConfirmation` 제거 → 성공 화면·안내에 자동 반영 |
 
 > 계좌·배송비·주문 스키마는 계약서(`orderContract.ts`) 소유자가 갱신합니다.
