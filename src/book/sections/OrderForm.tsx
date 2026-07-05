@@ -430,7 +430,17 @@ export default function OrderForm() {
                 {errors.payer && <p className="mt-1 text-xs text-red-400">{errors.payer}</p>}
               </div>
 
-              <Field id="receipt" label="증빙" required error={errors.receipt}>
+              <Field
+                id="receipt"
+                label="증빙"
+                required
+                error={errors.receipt}
+                hint={
+                  payload.receipt === '불필요'
+                    ? '현금영수증·세금계산서가 필요하면 선택하세요.'
+                    : undefined
+                }
+              >
                 <select
                   id="receipt"
                   className={`${fieldClass(!!errors.receipt)} appearance-none`}
@@ -443,6 +453,13 @@ export default function OrderForm() {
                     </option>
                   ))}
                 </select>
+                {payload.receipt !== '불필요' && (
+                  <p className="mt-2 rounded-lg border border-blue/25 bg-blue/10 px-3 py-2 text-xs leading-relaxed text-mist/80">
+                    {payload.receipt === '현금영수증'
+                      ? '현금영수증 발급에 필요한 휴대폰번호(또는 사업자등록번호)를 아래 ‘남기실 말씀’에 적어 주세요.'
+                      : '세금계산서 발급에 필요한 사업자등록번호·상호·이메일을 아래 ‘남기실 말씀’에 적어 주세요.'}
+                  </p>
+                )}
               </Field>
 
               <Field id="message" label="남기실 말씀" error={errors.message}>
