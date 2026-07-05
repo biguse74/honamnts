@@ -78,6 +78,7 @@ function onOpen() {
     .addItem('사용설명서 새로고침', 'refreshOperatorGuideSheet')
     .addItem('2. 주문 현황 새로고침', 'refreshOrderDashboard')
     .addItem('예약자 명단 새로고침', 'refreshOperatorOrderView')
+    .addItem('기존 주문 금액 재계산', 'recalculateOrderAmounts')
     .addItem('선택 주문 입금확인', 'markSelectedOrderPaid')
     .addItem('선택 주문 취소', 'cancelSelectedOrder')
     .addSeparator()
@@ -191,6 +192,16 @@ function refreshOperatorOrderView() {
   var count = refreshOperatorOrderView_()
   SpreadsheetApp.getUi().alert('예약자 명단 새로고침 완료\n' + count + '건')
   return { ok: true, count: count }
+}
+
+/**
+ * 가격/배송비 정책 변경 후 기존 주문의 amount를 현재 상수 기준으로 다시 계산한다.
+ */
+function recalculateOrderAmounts() {
+  var updatedCount = recalculateOrderAmounts_()
+  refreshOrderDashboard()
+  SpreadsheetApp.getUi().alert('기존 주문 금액 재계산 완료\n수정: ' + updatedCount + '건')
+  return { ok: true, updatedCount: updatedCount }
 }
 
 /**
@@ -629,6 +640,42 @@ function getOrders_() {
     .sort(function (a, b) {
       return String(a.orderNo).localeCompare(String(b.orderNo))
     })
+}
+
+function recalculateOrderAmounts_() {
+  var sheet = getOrderSheet_()
+  ensureOrderHeader_(sheet)
+
+  var lastRow = sheet.getLastRow()
+  if (lastRow < 2) return 0
+
+  var header = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+  var qtyColumn = header.indexOf('qty') + 1
+  var amountColumn = header.indexOf('amount') + 1
+  if (qtyColumn < 1 || amountColumn < 1) throw new Error('qty 또는 amount 컬럼을 찾지 못했습니다.')
+
+  var rowCount = lastRow - 1
+  var qtyValues = sheet.getRange(2, qtyColumn, rowCount, 1).getValues()
+  var amountRange = sheet.getRange(2, amountColumn, rowCount, 1)
+  var amountValues = amountRange.getValues()
+  var updatedCount = 0
+
+  for (var i = 0; i < rowCount; i += 1) {
+    var qty = Number(qtyValues[i][0])
+    if (!isValidQty_(qty)) continue
+
+    var nextAmount = calculateAmount_(qty)
+    if (Number(amountValues[i][0]) !== nextAmount) {
+      amountValues[i][0] = nextAmount
+      updatedCount += 1
+    }
+  }
+
+  if (updatedCount > 0) {
+    amountRange.setValues(amountValues)
+  }
+
+  return updatedCount
 }
 
 function refreshOperatorOrderView_(orders) {

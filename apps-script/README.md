@@ -43,6 +43,8 @@ Apps Script 프로젝트의 **스크립트 속성**에 아래 값을 둡니다.
 
 현황만 다시 보고 싶으면 `불의 고리 주문 → 2. 주문 현황 새로고침` 또는 `불의 고리 주문 → 예약자 명단 새로고침`을 누릅니다.
 
+가격·배송비 정책 변경 뒤 기존 주문 금액을 다시 계산해야 하면 `불의 고리 주문 → 기존 주문 금액 재계산`을 누릅니다.
+
 개별 주문을 수동 처리해야 하면 `예약자명단`, `Orders`, 또는 `입금대사결과`에서 해당 주문 행을 선택한 뒤:
 
 - `불의 고리 주문 → 선택 주문 입금확인`
@@ -78,6 +80,7 @@ Apps Script 프로젝트의 **스크립트 속성**에 아래 값을 둡니다.
 - `refreshOperatorGuideSheet()`: 구글 시트 안에 실무자용 `사용설명서` 생성/갱신
 - `refreshOrderDashboard()`: 운영대시보드 갱신
 - `refreshOperatorOrderView()`: 한국어 헤더 `예약자명단` 갱신
+- `recalculateOrderAmounts()`: 현재 가격/배송비 상수 기준으로 기존 주문 `amount` 재계산
 - `markSelectedOrderPaid()`: 현재 선택 행의 주문을 입금확인 처리
 - `cancelSelectedOrder()`: 현재 선택 행의 주문을 취소 처리
 - `previewBankCsvMatches()`: 시트에 붙여넣은 은행 CSV 대사 미리보기
