@@ -1,5 +1,5 @@
 // ============================================================================
-// src/book/content.ts — 『불의 고리』 예약판매 페이지의 편집(마케팅) 카피 단일 출처.
+// src/book/content.ts — 『불의 고리』 판매 페이지의 편집(마케팅) 카피 단일 출처.
 //
 // 카피 근거: 호남백서 조판 소스(D:\호남백서\03_조판)의 표지(honam_ring.pdf)·
 //           목차(TOC.tex)·발간사(vA.tex)에서 확인한 실제 원고 기준.
@@ -23,7 +23,7 @@ export const bookHero = {
   tagline:
     '민주당 공천이 곧 당선이던 호남. 검증이 멈춘 자리에서 표심은 무엇을 심판했나 — 영광에서 신안·무안·진도·순천·전북까지 이어진 기록.',
   priceLine: `정가 ${formatMoney(ORDER_CONTRACT.product.unitPrice)} · 택배비 5,000원 · 신국판 309쪽`,
-  primaryCta: '예약하기',
+  primaryCta: '주문하기',
   ctaTargetId: 'order',
   coverImage: '/assets/book-cover.png', // 실제 앞표지(인쇄본에서 추출)
   coverAlt: '『불의 고리』 앞표지 — 공천재난이 깨운 불의 고리, 호남을 뒤흔들다',
@@ -100,7 +100,7 @@ export const bookInfo = {
 // ── 푸터 ─────────────────────────────────────────────────────────────────────
 export const bookFooter = {
   publisher: '시민언론 뉴탐사',
-  note: '『불의 고리』 예약판매 · 발간 일정과 배송은 입력하신 연락처로 안내드립니다.',
+  note: '『불의 고리』 · 주문 후 발송·배송은 입력하신 연락처로 안내드립니다.',
   contact: '문의 010-4330-5430 · 문자 안내만 가능',
   contactTel: '010-4330-5430',
 }

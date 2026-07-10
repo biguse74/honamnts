@@ -528,7 +528,7 @@ export default function OrderForm() {
               disabled={submitting}
               className="w-full rounded-full bg-gold px-8 py-4 text-lg font-bold text-navy shadow-signal transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? '접수 중…' : `예약 접수하기 · ${formatMoney(amount)}`}
+              {submitting ? '접수 중…' : `주문하기 · ${formatMoney(amount)}`}
             </button>
           </form>
         )}
@@ -575,12 +575,12 @@ function SuccessCard({ payload, orderNo }: { payload: OrderPayload; orderNo: str
   return (
     <Reveal>
       <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-gold/40 bg-navy p-6 sm:p-8">
-        <p className="text-sm font-semibold tracking-[0.08em] text-gold">예약 접수 완료</p>
+        <p className="text-sm font-semibold tracking-[0.08em] text-gold">주문 접수 완료</p>
         <h3 className="mt-2 text-2xl font-extrabold text-ink sm:text-3xl">
           주문번호 <span className="text-gold">{orderNo}</span>
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-mist/75">
-          예약이 접수되었습니다. 아래 계좌로 입금하실 때{' '}
+          주문이 접수되었습니다. 아래 계좌로 입금하실 때{' '}
           <span className="font-semibold text-ink">{ORDER_CONTRACT.copy.depositInstruction}</span>
           해 주세요.
         </p>

@@ -66,8 +66,8 @@ export type OrderFieldErrors = Partial<Record<keyof OrderPayload, string>>
 export const ORDER_CONTRACT = {
   product: {
     title: '불의 고리',
-    eyebrow: '예약판매',
-    subtitle: '발간 일정과 배송 안내를 받을 예약 주문을 접수합니다.',
+    eyebrow: '판매 중',
+    subtitle: '지금 주문하시면 초판을 보내드립니다.',
     unitPrice: 29000,
     heroImage: '/assets/ring-of-fire-book.png',
   },
@@ -93,7 +93,7 @@ export const ORDER_CONTRACT = {
     sample: 'HB-0001',
   },
   copy: {
-    formTitle: '예약 주문서',
+    formTitle: '주문서',
     formLead: '필수 정보와 배송지를 입력하면 주문번호가 발급됩니다.',
     depositInstruction: '입금자명 뒤 orderNo 기재',
     pendingPg: '카드 결제는 2단계 PG 연동 후 활성화됩니다.',
