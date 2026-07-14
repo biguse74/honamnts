@@ -5,7 +5,8 @@
 `Reveal`·`SectionBackground`·`ImagePlaceholder` 등)을 재활용합니다.
 
 - 배포 경로: **`honamnts.org/book`** (멀티 엔트리 — 랜딩 `/` + 책 `/book/`)
-- 섹션: 히어로(표지+제목+예약하기) · 책소개(4단락) · 미리보기(지도 무제판+목차) · 책정보 · 주문 폼 · 푸터
+- 섹션: 히어로(표지+제목+주문하기) · 책소개(4단락) · 미리보기(지도 무제판+목차) · 책정보 · 지은이 · 주문 폼 · 푸터
+- 초판 출간 완료(2026-07 기준) → 사이트 문구는 "예약" 제거, "주문/판매 중"
 
 ## 로컬 실행 / 빌드
 ```bash
@@ -38,9 +39,13 @@ src/book/
 ## 상수 (확정 필요 항목) — `orderContract.ts`
 | 항목 | 현재 값 | 비고 |
 |---|---|---|
-| 단가 | 29,000원 | 확정 |
-| 배송비 | 택배비 5,000원 / 무료배송 없음 | `delivery.fee`, `delivery.freeFromQty` |
-| 입금 계좌 | **미지정 (`needsConfirmation: true`)** | 확정 시 `bank.{bank,number,holder}` 채우고 `needsConfirmation` 제거 → 성공 화면·안내에 자동 반영 |
+| 단가 | 29,000원 | 확정 (1권 합계 34,000원) |
+| 배송비 | 우체국택배 5,000원 / 무료배송 없음 | `delivery.fee`, `delivery.freeFromQty=999` |
+| 입금 계좌 | **우리은행 1005-704-736089 / 주식회사 시민언론뉴탐사** | `needsConfirmation:false` (확정) |
+| 반송 | 주소 오류 반송 시 재발송 택배비 5,000원 | 주문 폼 배송지 안내 |
+
+> ⚠️ 서버(코덱스 `apps-script/Code.gs`)의 `UNIT_PRICE`/`DELIVERY_FEE`/`FREE_DELIVERY_FROM_QTY`도
+> 29000·5000·999로 맞춰야 구글 시트 금액·입금 대사가 일치. **Apps Script 편집기에서 재배포** 필요.
 
 > 계좌·배송비·주문 스키마는 계약서(`orderContract.ts`) 소유자가 갱신합니다.
 > 프런트는 이 값을 화면에 표시만 합니다. `amount`는 서버가 최종 계산합니다.
@@ -74,3 +79,42 @@ python -c "import fitz; d=fitz.open('honam_ring_notitle.pdf'); d[0].get_pixmap(m
   랜딩 `/`, 책 `/book/`가 함께 게시됩니다.
 - 커스텀 도메인은 `public/CNAME`. `honamnts.org`로 서비스하려면 CNAME/DNS를 그에 맞게 설정하세요.
 - Apps Script로 운영할 경우: 폼은 링크/런타임 감지 방식이라 HTML 배포 위치와 무관하게 동작합니다.
+
+## 새 기기(macOS)에서 이어서 작업하기
+저장소가 GitHub(`github.com/biguse74/honamnts`)에 전부 올라가 있어 **클론만 하면 그대로 이어집니다.**
+
+**1) 도구 설치**
+```bash
+xcode-select --install                      # git 등 커맨드라인 도구
+# Homebrew 없으면: https://brew.sh 설치 스크립트 실행
+brew install node@20                         # Node 20 (GitHub Actions와 동일 버전)
+npm install -g @anthropic-ai/claude-code     # Claude Code CLI  → 실행: claude
+brew install python && pip3 install pymupdf pillow   # (선택) 표지·지도·OG 이미지 재생성용
+```
+
+**2) 인증 + 클론**
+```bash
+gh auth login                               # 또는 SSH 키 등록. 계정: biguse74
+git clone https://github.com/biguse74/honamnts.git
+cd honamnts && npm install
+git config user.email "biguse@newtamsa.org"
+npm run dev                                 # http://localhost:5173/book/
+```
+
+**3) 배포**
+- `main`에 push하면 GitHub Pages가 자동 빌드·배포합니다(랜딩 `/`, 책 `/book/`).
+- 지금까지 모든 작업을 `main`에 반영해 왔으므로, 맥에서는 `main`에서 작업 후 `git push`만 하면 됩니다.
+
+**4) Claude Code로 맥락 이어가기**
+- 이전 대화 세션은 기기 종속이라 자동 이전되지 않습니다. 클론 폴더에서 `claude` 실행 후
+  "이 저장소 `BOOK.md`와 `git log`를 읽고 이어서 작업" 이라고 하면 맥락이 복구됩니다.
+
+**5) 로컬 전용(깃에 없는) 원본 파일 — 필요 시 복사**
+아래는 이 Windows PC에만 있고 저장소엔 없습니다. **이미지를 재생성할 때만** 맥으로 복사(클라우드/USB):
+- 표지 원본: `불의고리_표지_벡터변환2(인쇄본).ai`, `honam_ring.pdf`, `honam_ring_notitle.pdf` (`D:\호남백서\03_조판\...`)
+- 재활용 사진 원본: `D:\NTS_website\hnn_donors_system\public-landing\images`
+- 인쇄 견적서 등
+> 웹에 실제 쓰이는 결과물(`public/assets/*.png|jpg`)은 이미 저장소에 있어 재생성 없이 그대로 씁니다.
+
+**6) 백엔드(Apps Script)**
+- `apps-script/Code.gs`·`server/`는 저장소에 있으나, **실제 구동 코드는 script.google.com**(구글 계정)에 있습니다. 맥 설치와 무관하며 코덱스/담당자 소관입니다.
